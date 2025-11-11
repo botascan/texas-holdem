@@ -4,29 +4,53 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 type Card struct {
-	Suit rune
+	Suit  rune
 	Value int
 }
 
-var cards String =[12]String{"A","K","Q","J","10","9","8","7","6","5","4","3","2"}
-var suits char = [3]char{'C','D','H','S'}
-var hand [4]Card
- 
-func main()  {
+var cards = [13]string{"A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"}
+var court = [4]string{"A", "K", "Q", "J"}
+var numbered = [9]string{"10", "9", "8", "7", "6", "5", "4", "3", "2"}
+var suits = [4]string{"C", "D", "H", "S"}
+
+type Hand []Card
+
+func (h Hand) evaluate() string {
+	for i, card := range h {
+
+	}
+
+	return ""
+}
+
+func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter your poker hand: ")
 	scanner.Scan()
 	input := scanner.Text()
 
-	fmt.PrintLn("You entered: ", input)
+	fmt.Println("You entered: ", input)
 
-	word := "Hello"
+}
 
-	for i, char := range word {
-		fmt.Printf("Index: %d, Character: %c\n", i, char)
+func stringToHand(input string) {
+	cards := [5]Card{}
+	for i, char := range input {
+		for i%2 == 0 {
+			cards[i].Suit = char
+		}
+		for i%2 == 1 {
+			num, err := strconv.Atoi(char)
+			if err != nil {
+				fmt.Println("Error:", err)
+				return
+			}
+			cards[i].Value = num
+		}
 	}
 }
 
@@ -47,11 +71,7 @@ func rankToValue(r rune) int {
 	}
 }
 
-func combination(input string) string {
-	for i, char := range input {
-		
-	}
-}
+/*
 func royal_flush(input string) bool {
 // A-K-Q-J-T in the same suit
 }
@@ -79,3 +99,4 @@ func one_pair(input string) bool {
 func high_card(input string) bool {
 // highest card if no other combination
 }
+*/
