@@ -9,7 +9,7 @@ import (
 
 type Card struct {
 	Suit  rune
-	Value int
+	Value rune
 }
 
 var cards = [13]string{"A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"}
@@ -38,19 +38,33 @@ func main() {
 }
 
 func stringToHand(input string) {
+	if input == nil || input == "" {
+		fmt.Prinln("Input cannot be empty!")
+		break
+	}
+
 	cards := [5]Card{}
-	for i, char := range input {
-		for i%2 == 0 {
-			cards[i].Suit = char
-		}
-		for i%2 == 1 {
-			num, err := strconv.Atoi(char)
-			if err != nil {
-				fmt.Println("Error:", err)
-				return
+	
+	k := 0
+	for i : range input {
+		arr := [2]rune{}
+
+		for j, char := range input {
+			
+			if char != "" {
+				arr[k % 2] = char
+				k++
 			}
-			cards[i].Value = num
+
+			if char == "" {
+				continue
+			}
+
+			
 		}
+		cards[i].Suit = arr[0]
+		cards[i].Value = arr[1]	
+		arr = [2]rune{}
 	}
 }
 
